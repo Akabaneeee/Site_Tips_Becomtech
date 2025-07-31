@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bonnes Pratiques HTML & CSS</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One:wght@400&family=Poppins:wght@300;400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ff9ec7 0%, #ffc3e0 25%, #ffe4f2 50%, #fff0f8 100%);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        /* Mode sombre */
+        body.dark-mode {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 25%, #0f3460 50%, #1e3a5f 100%);
+        }
+        
+        /* Bouton de mode sombre */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* Étoiles et cœurs décoratifs */
+        .decoration {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0.6;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .star1 { top: 15%; left: 10%; animation-delay: 0s; }
+        .star2 { top: 25%; right: 15%; animation-delay: 1s; }
+        .star3 { top: 60%; left: 5%; animation-delay: 2s; }
+        .star4 { top: 80%; right: 20%; animation-delay: 0.5s; }
+        .heart1 { top: 35%; left: 85%; animation-delay: 1.5s; }
+        .heart2 { top: 70%; right: 10%; animation-delay: 2.5s; }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+        
+        /* Navigation */
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .dark-mode nav {
+            background: rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .dark-mode .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Titre principal avec effet 3D */
+        .main-title {
+            text-align: center;
+            margin: 40px 0;
+        }
+        
+        .html-css-title {
+            font-family: 'Fredoka One', cursive;
+            font-size: 4.5rem;
+            background: linear-gradient(45deg, #ff6b9d, #ff8fb3, #ffb3cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 8px 16px rgba(255, 107, 157, 0.3);
+            margin-bottom: 10px;
+            transform: perspective(500px) rotateX(10deg);
+        }
+        
+        .dark-mode .html-css-title {
+            background: linear-gradient(45deg, #ff6b9d, #ff8fb3, #ffb3cc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 8px 16px rgba(255, 107, 157, 0.5);
+        }
+        
+        .subtitle {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2rem;
+            color: #fff;
+            text-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+        
+        /* Container principal */
+        .tips-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 10;
+            transition: all 0.3s ease;
+        }
+        
+        .dark-mode .tips-container {
+            background: rgba(30, 30, 46, 0.9);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        /* Chaque conseil */
+        .tip {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 243, 248, 0.9));
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(255, 107, 157, 0.1);
+            transition: all 0.3s ease;
+            border-left: 4px solid #ff6b9d;
+        }
+        
+        .dark-mode .tip {
+            background: linear-gradient(135deg, rgba(45, 55, 72, 0.8), rgba(30, 30, 46, 0.9));
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        
+        .tip:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(255, 107, 157, 0.2);
+        }
+        
+        .dark-mode .tip:hover {
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+        }
+        
+        .tip-icon {
+            font-size: 24px;
+            margin-right: 20px;
+            color: #ffd700;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            animation: sparkle 2s ease-in-out infinite;
+        }
+        
+        @keyframes sparkle {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(5deg); }
+        }
+        
+        .tip-content h3 {
+            color: #333;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            line-height: 1.4;
+            transition: color 0.3s ease;
+        }
+        
+        .dark-mode .tip-content h3 {
+            color: #e2e8f0;
+        }
+        
+        .tip-content p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+            font-weight: 300;
+            transition: color 0.3s ease;
+        }
+        
+        .dark-mode .tip-content p {
+            color: #a0aec0;
+        }
+        
+        /* Code examples */
+        .code-example {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            border-left: 4px solid #ff6b9d;
+        }
+        
+        .dark-mode .code-example {
+            background: #1a202c;
+            border-left: 4px solid #ff6b9d;
+        }
+        
+        .code-example .keyword { color: #ff6b9d; }
+        .code-example .string { color: #68d391; }
+        .code-example .comment { color: #a0aec0; font-style: italic; }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .footer-heart {
+            color: #ff6b9d;
+            font-size: 1.2rem;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Bouton mode sombre -->
+    <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙</button>
+
+    <!-- ⭐ Décorations flottantes -->
+    <span class="decoration star1">⭐</span>
+    <span class="decoration star2">⭐</span>
+    <span class="decoration star3">⭐</span>
+    <span class="decoration star4">⭐</span>
+    <span class="decoration heart1">💖</span>
+    <span class="decoration heart2">💕</span>
+
+    <!-- 🧭 Navigation avec liens -->
+    <nav>
+        <a href="https://www.w3schools.com/html/default.asp" class="nav-link" target="_blank">HTML</a>
+        <a href="https://www.w3schools.com/css/default.asp" class="nav-link" target="_blank">CSS</a>
+        <a href="#bon-tips" class="nav-link">BON TIPS</a>
+        <a href="idees.html" class="nav-link">IDÉES</a>
+        <a href="https://www.sublimetext.com/" class="nav-link" target="_blank">SITES</a>
+    </nav>
+
+    <!-- 🎀 Titre principal -->
+    <header class="main-title">
+        <h1 class="html-css-title">HTML CSS</h1>
+        <h2 class="subtitle">BONNES IDÉES ET PRATIQUES</h2>
+    </header>
+
+    <!-- 💡 Conteneur des conseils -->
+    <main class="tips-container" id="bon-tips">
+
+        <article class="tip">
+            <span class="tip-icon">⭐</span>
+            <section class="tip-content">
+                <h3>Teste souvent ce que tu écris</h3>
+                <p>Vérifie régulièrement ton code dans le navigateur. N'attends pas d'avoir tout terminé pour voir le résultat !</p>
+            </section>
+        </article>
+
+        <article class="tip">
+            <span class="tip-icon">⭐</span>
+            <section class="tip-content">
+                <h3>Utilise des couleurs faciles à lire</h3>
+                <p>Choisis des couleurs qui contrastent bien entre elles. Évite le texte clair sur fond clair ou sombre sur sombre.</p>
+                <div class="code-example">
+<span class="comment">/* Bon contraste */</span><br>
+<span class="keyword">color</span>: <span class="string">#333</span>; <span class="comment">/* Texte sombre */</span><br>
+<span class="keyword">background-color</span>: <span class="string">#fff</span>; <span class="comment">/* Fond clair */</span>
+                </div>
+            </section>
+        </article>
+
+        <article class="tip">
+            <span class="tip-icon">⭐</span>
+            <section class="tip-content">
+                <h3>Ne pas tout aligner au centre</h3>
+                <p>Ce n'est pas parce qu'on peut que tu dois ! Le centrage, oui, mais pas systématique, ça rend difficile à lire.</p>
+                <div class="code-example">
+<span class="comment">/* Évite ça pour tout le texte */</span><br>
+<span class="keyword">text-align</span>: <span class="string">center</span>; <span class="comment">/* Seulement pour les titres */</span>
+                </div>
+            </section>
+        </article>
+
+        <article class="tip">
+            <span class="tip-icon">⭐</span>
+            <section class="tip-content">
+                <h3>Donne des noms clairs à tes classes</h3>
+                <p>Tes futures self te remercieront ! Une classe .bouton-rouge ne dit pas à quoi ça sert en fait.</p>
+                <div class="code-example">
+<span class="comment">/* Bien : décrit la fonction */</span><br>
+<span class="keyword">.bouton-validation</span> { }<br>
+<span class="comment">/* Évite : décrit seulement l'apparence */</span><br>
+<span class="keyword">.bouton-rouge</span> { }
+                </div>
+            </section>
+        </article>
+
+        <article class="tip">
+            <span class="tip-icon">⭐</span>
+            <section class="tip-content">
+                <h3>Joue avec les marges et les espaces</h3>
+                <p>Donne-leur de l'air ! Espace tes éléments et ajoute de la respiration. Évite que tout soit collé et entassé les uns sur les autres.</p>
+                <div class="code-example">
+<span class="keyword">margin</span>: <span class="string">20px</span>; <span class="comment">/* Espace autour */</span><br>
+<span class="keyword">padding</span>: <span class="string">15px</span>; <span class="comment">/* Espace intérieur */</span><br>
+<span class="keyword">line-height</span>: <span class="string">1.6</span>; <span class="comment">/* Aère le texte */</span>
+                </div>
+            </section>
+        </article>
+
+        <article class="tip">
+            <span class="tip-icon">⭐</span>
+            <section class="tip-content">
+                <h3>Fais attention à bien fermer tes balises</h3>
+                <p>Par exemple : &lt;strong&gt; doit se fermer avec &lt;/strong&gt; sinon, ça peut casser ton site !</p>
+                <div class="code-example">
+<span class="comment">&lt;!-- Correct --&gt;</span><br>
+&lt;<span class="keyword">p</span>&gt;Mon texte&lt;/<span class="keyword">p</span>&gt;<br>
+&lt;<span class="keyword">strong</span>&gt;Important&lt;/<span class="keyword">strong</span>&gt;
+                </div>
+            </section>
+        </article>
+
+        <article class="tip">
+            <span class="tip-icon">⭐</span>
+            <section class="tip-content">
+                <h3>Organise ton code avec des commentaires</h3>
+                <p>Ça te permet de t'y retrouver facilement... et aussi tes commentaires !</p>
+                <div class="code-example">
+<span class="comment">/* === HEADER === */</span><br>
+<span class="keyword">.header</span> { <span class="keyword">background</span>: <span class="string">#ff6b9d</span>; }<br>
+<span class="comment">/* === NAVIGATION === */</span><br>
+<span class="keyword">.nav</span> { <span class="keyword">display</span>: <span class="string">flex</span>; }
+                </div>
+            </section>
+        </article>
+
+        <article class="tip">
+            <span class="tip-icon">💡</span>
+            <section class="tip-content">
+                <h3>Inspecte ton site avec clic droit</h3>
+                <p>Sur ton navigateur, fais clic droit &gt; "Inspecter" pour voir ton code en action. C'est ton super outil secret de développeuse</p>
+            </section>
+        </article>
+
+        <article class="tip">
+            <span class="tip-icon">💡</span>
+            <section class="tip-content">
+                <h3>Fais des pauses</h3>
+                <p>Quand tu bloques ou que tu en as marre, c'est ok de faire une pause. Ton cerveau continue de réfléchir sans toi 🧠</p>
+            </section>
+        </article>
+
+        <article class="tip">
+            <span class="tip-icon">💡</span>
+            <section class="tip-content">
+                <h3>Tu as le droit de te tromper</h3>
+                <p>Faire des erreurs fait partie de l'apprentissage. Si quelque chose ne marche pas, respire, relis doucement.</p>
+            </section>
+        </article>
+
+    </main>
+
+    <!-- 📌 Pied de page -->
+    <footer>
+        <p>Créé avec <span class="footer-heart">💖</span> pour apprendre HTML & CSS</p>
+        <p>Continue à coder, tu fais du super travail !</p>
+    </footer>
+
+    <script>
+        function toggleDarkMode() {
+            const body = document.body;
+            const button = document.querySelector('.dark-mode-toggle');
+            
+            body.classList.toggle('dark-mode');
+            
+            if (body.classList.contains('dark-mode')) {
+                button.textContent = '☀️';
+            } else {
+                button.textContent = '🌙';
+            }
+        }
+    </script>
+</body>
+</html>
